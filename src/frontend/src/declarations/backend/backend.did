@@ -1,0 +1,62 @@
+type WeeklyGoal = 
+ record {
+   id: nat;
+   subjectId: opt nat;
+   targetMinutes: nat;
+   weekStart: int;
+ };
+type UserSettings = 
+ record {
+   longBreakDuration: nat;
+   sessionsBeforeLongBreak: nat;
+   shortBreakDuration: nat;
+   workDuration: nat;
+ };
+type UserProfile = record {name: text;};
+type Subject = 
+ record {
+   color: text;
+   id: nat;
+   name: text;
+ };
+type StudyStats = 
+ record {
+   currentStreak: nat;
+   longestStreak: nat;
+   minutesPerSubject: vec record {
+                            nat;
+                            nat;
+                          };
+   totalMinutes: nat;
+ };
+type Session = 
+ record {
+   duration: nat;
+   id: nat;
+   sessionType: text;
+   startTime: int;
+   subjectId: nat;
+ };
+service : {
+  addSubject: (name: text, color: text) -> (nat);
+  deleteSession: (id: nat) -> ();
+  deleteSubject: (id: nat) -> ();
+  deleteWeeklyGoal: (id: nat) -> ();
+  getProfile: () -> (opt UserProfile) query;
+  getSessions: () -> (vec Session) query;
+  getSessionsByDateRange: (start: int, finish: int) -> (vec Session) query;
+  getSessionsBySubject: (subjectId: nat) -> (vec Session) query;
+  getSettings: () -> (opt UserSettings) query;
+  getStudyStats: () -> (StudyStats) query;
+  getSubjects: () -> (vec Subject) query;
+  getWeeklyGoals: () -> (vec WeeklyGoal) query;
+  logSession: (subjectId: nat, startTime: int, duration: nat, sessionType:
+   text) -> (nat);
+  setProfile: (name: text) -> ();
+  setSettings: (workDuration: nat, shortBreak: nat, longBreak: nat,
+   sessionsBeforeLongBreak: nat) -> ();
+  setWeeklyGoal: (subjectId: opt nat, targetMinutes: nat, weekStart: 
+   int) -> (nat);
+  updateSubject: (id: nat, name: text, color: text) -> ();
+  updateWeeklyGoal: (id: nat, targetMinutes: nat) -> ();
+}
