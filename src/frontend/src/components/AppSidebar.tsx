@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  BookOpenCheck,
   History,
   LogOut,
   Settings as SettingsIcon,
@@ -28,9 +29,17 @@ import {
 } from "@/components/ui/sidebar";
 import { ModeToggle } from "./ModeToggle";
 
-type Tab = "timer" | "subjects" | "history" | "stats" | "goals" | "settings";
+type Tab =
+  | "smartPadho"
+  | "timer"
+  | "subjects"
+  | "history"
+  | "stats"
+  | "goals"
+  | "settings";
 
 const NAV_ITEMS: { id: Tab; label: string; icon: React.ElementType }[] = [
+  { id: "smartPadho", label: "Smart Padho", icon: BookOpenCheck },
   { id: "timer", label: "Focus Timer", icon: Timer },
   { id: "subjects", label: "Subjects", icon: Tags },
   { id: "history", label: "History", icon: History },
@@ -61,10 +70,10 @@ export function AppSidebar({
           </div>
           <div className="flex flex-col truncate group-data-[collapsible=icon]:hidden">
             <span className="font-serif text-lg font-bold leading-none tracking-tight">
-              StudyTimer
+              Smart Padho
             </span>
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">
-              Productivity
+              CBSE Prep
             </span>
           </div>
         </div>
