@@ -8,13 +8,21 @@ import { PomodoroTimer } from "./components/PomodoroTimer";
 import { ProfileSetupDialog } from "./components/ProfileSetupDialog";
 import { SessionHistory } from "./components/SessionHistory";
 import { Settings } from "./components/Settings";
+import { SmartPadhoWorkspace } from "./components/SmartPadhoWorkspace";
 import { StatsOverview } from "./components/StatsOverview";
 import { SubjectList } from "./components/SubjectList";
 import { WeeklyGoalsView } from "./components/WeeklyGoals";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
 import { useGetProfile } from "./hooks/useQueries";
 
-type Tab = "timer" | "subjects" | "history" | "stats" | "goals" | "settings";
+type Tab =
+  | "smartPadho"
+  | "timer"
+  | "subjects"
+  | "history"
+  | "stats"
+  | "goals"
+  | "settings";
 
 const App = () => {
   const { identity, login, clear, isInitializing } = useInternetIdentity();
@@ -25,7 +33,7 @@ const App = () => {
     isLoading: profileLoading,
     isError: profileError,
   } = useGetProfile();
-  const [activeTab, setActiveTab] = useState<Tab>("timer");
+  const [activeTab, setActiveTab] = useState<Tab>("smartPadho");
 
   // Stage 1: Landing page (not authenticated)
   if (!isAuthenticated) {
@@ -82,6 +90,7 @@ const App = () => {
         <SidebarInset>
           <main className="flex-1 overflow-auto">
             <div className="container mx-auto max-w-5xl px-4 py-6 md:px-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+              {activeTab === "smartPadho" && <SmartPadhoWorkspace />}
               {activeTab === "timer" && <PomodoroTimer />}
               {activeTab === "subjects" && <SubjectList />}
               {activeTab === "history" && <SessionHistory />}
